@@ -7,20 +7,33 @@ public class playerMovement : MonoBehaviour
     private Vector3 direction;
     public float speed;
     Rigidbody rb;
+    GameObject camra;
+    Vector3 movedir = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        camra = GameObject.Find("Main Camera"); //trocar para nome da camera da cena
     }
 
     private void FixedUpdate() {
-        rb.velocity = new Vector3(direction.x * speed * Time.deltaTime,0.0f,direction.z * speed * Time.deltaTime);
+        //rb.velocity = new Vector3(direction.x * speed * Time.deltaTime,0.0f,direction.z * speed * Time.deltaTime);
+        if(movedir != Vector3.zero){
+            rb.velocity = movedir.normalized * speed;
+        }else{
+            rb.velocity = Vector3.zero;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        direction = new Vector3(Input.GetAxisRaw("Horizontal"),0.0f,Input.GetAxisRaw("Vertical")).normalized;
+        Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"),0.0f,Input.GetAxisRaw("Vertical")).normalized;
+        movedir = Vector3.zero;
+        if(direction.magnitude > 0.1f){
+            float angulo = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camra.transform.eulerAngles.y;
+            movedir = Quaternion.Euler(0, angulo, 0) * Vector3.forward;
+        }
     }
 }
