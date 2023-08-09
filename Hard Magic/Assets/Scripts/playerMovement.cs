@@ -12,6 +12,8 @@ public class playerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        // how to use sounds: VOU COLOCAR NO GIT CALMA CALMA
+        FindObjectOfType<AudioManager>().Play("");
     }
 
     private void FixedUpdate() {
