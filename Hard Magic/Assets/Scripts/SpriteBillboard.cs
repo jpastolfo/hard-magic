@@ -3,7 +3,7 @@ using Cinemachine;
 
 public class SpriteBillboard : MonoBehaviour
 {
-    [SerializeField] bool freezeXZAxis = true;
+    [SerializeField] readonly bool freezeXZAxis = true;
 
     private Transform _cameraTransform;
 
