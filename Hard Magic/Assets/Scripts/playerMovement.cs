@@ -11,17 +11,21 @@ public class playerMovement : MonoBehaviour
     Vector3 movedir = Vector3.zero;
     public bool grounded = false;
 
+    float speedOriginal;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         camra = GameObject.Find("Main Camera"); //trocar para nome da camera da cena
+        speedOriginal = speed;
     }
 
     private void FixedUpdate() {
         //rb.velocity = new Vector3(direction.x * speed * Time.deltaTime,0.0f,direction.z * speed * Time.deltaTime);
-        if(movedir != Vector3.zero && grounded){
-            rb.velocity = movedir.normalized * speed;
+        if(movedir != Vector3.zero){
+            //rb.velocity = movedir.normalized * speed;
+            transform.position += movedir.normalized * speed * Time.deltaTime;
         }
     }
 
@@ -34,12 +38,15 @@ public class playerMovement : MonoBehaviour
             float angulo = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camra.transform.eulerAngles.y;
             movedir = Quaternion.Euler(0, angulo, 0) * Vector3.forward;
         }
-        RaycastHit hit;
+        /*RaycastHit hit;
         if(Physics.Raycast(transform.position, -transform.up, out hit, 0.1f)) {
             grounded = true;
             rb.velocity = Vector3.zero;
         }else{
             grounded = false;
-        }
+        }*/
+    }
+    public void slow(float pct){
+        speed = speedOriginal * pct;
     }
 }
