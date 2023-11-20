@@ -8,7 +8,7 @@ public class CameraMaterialChange : MonoBehaviour
     public GameObject player;
     public Material transparent;
     private Material materiales;
-    public BoxCollider Collider;
+    public Collider Collider;
 
     [System.Serializable]
     public struct objetonafrente 
@@ -21,7 +21,7 @@ public class CameraMaterialChange : MonoBehaviour
     public objetonafrente[] objetosn;
     void Start()
     {
-        Collider = GetComponent<BoxCollider>();
+        Collider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class CameraMaterialChange : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<MeshRenderer>() != null && objetosn[i].gameobjectn == null)
+        if (other.gameObject.GetComponent<MeshRenderer>() != null&& other.gameObject.GetComponent<MeshRenderer>() != transparent && objetosn[i].gameobjectn == null)
         {
             if (i >= objetosn.Length-1) i = 0;
             //materiales = other.gameObject.GetComponent<MeshRenderer>().material;
