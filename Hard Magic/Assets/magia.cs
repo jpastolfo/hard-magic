@@ -32,8 +32,8 @@ public class magia : MonoBehaviour
         if(other.GetComponent<battleManager>() != null){
             if(other.GetComponent<battleManager>().time != time){
                 other.GetComponent<battleManager>().aplicadano(dano);
-                if(dieOnContact)
-                    Destroy(gameObject);
+                if(GetComponent<miniGelinhos>() != null) GetComponent<miniGelinhos>().spawnarGelo();
+                if(dieOnContact) Destroy(gameObject);
             }
         }else{
             if(dieOnContact)
