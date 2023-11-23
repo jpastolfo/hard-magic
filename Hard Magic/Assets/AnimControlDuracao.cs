@@ -15,6 +15,8 @@ public class AnimControlDuracao : MonoBehaviour
 
         float speed = clip.length / desiredDurationInSeconds;
 
+        animator.speed = speed;
+
         Destroy(gameObject, duracao);
     }
 

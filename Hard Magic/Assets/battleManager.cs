@@ -5,17 +5,19 @@ using UnityEngine.UI;
 using TMPro;
 public class battleManager : MonoBehaviour
 {
-    public float vida, mana, manaPS;
-    float vidaatual, manaAtual;
+    public float vida, mana = 100, manaPS = 2, manaCastPS = 2;
+    float vidaatual, manaAtual = 0, manaCast = 0;
     public int time;
     GameObject hbfiller, prefabDmgText, manafiller, loadfiller;
-    bool castando;
+    bool castando = false;
     // Start is called before the first frame update
     void Start()
     {
         hbfiller = transform.Find("Canvas").Find("HealthBar").Find("hbfiller").gameObject;
-        manafiller = transform.Find("Canvas").Find("Manabar").Find("manafiller").gameObject;
-        loadfiller = transform.Find("Canvas").Find("Manabar").Find("filler").gameObject;
+        if(time == 0){
+            manafiller = transform.Find("Canvas").Find("Manabar").Find("manafiller").gameObject;
+            loadfiller = transform.Find("Canvas").Find("Manabar").Find("filler").gameObject;
+        }
         vidaatual = vida;
         prefabDmgText = Resources.Load<GameObject>("dmgCanvas");
     }
@@ -24,10 +26,17 @@ public class battleManager : MonoBehaviour
     void Update()
     {
         if(!castando){
-            manaAtual += manaPS;
+            manaAtual += manaPS * Time.deltaTime;
             if(manaAtual > mana){
                 manaAtual = mana;
             }
+        }else{
+            manaCast += Time.deltaTime * manaCastPS;
+            if(manaCast > manaAtual) manaCast = manaAtual;
+        }
+        if(time == 0){
+            manafiller.GetComponent<Image>().fillAmount = manaAtual/mana;
+            loadfiller.GetComponent<Image>().fillAmount = manaCast/mana;
         }
     }
 
@@ -44,11 +53,13 @@ public class battleManager : MonoBehaviour
         }
     }
 
-    public void gastarMana(float n){
-        manaAtual -= n;
-        if(manaAtual < 0){
-            manaAtual = 0;
+    public float castMana(){
+        castando = !castando;
+        if(!castando){
+            float aux = manaCast;
+            manaCast = 0;
+            return aux;
         }
-        manafiller.GetComponent<Image>().fillAmount = manaAtual/mana;
+        return -1;
     }
 }
