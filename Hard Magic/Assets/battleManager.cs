@@ -22,7 +22,7 @@ public class battleManager : MonoBehaviour
         }
         vidaatual = vida;
         prefabDmgText = Resources.Load<GameObject>("dmgCanvas");
-        blue = new Color(0.8862745f, 0.2470588f, 0.7797884f, 1);
+        blue = new Color(0.3840512f, 0.5693969f, 0.8773585f, 1);
         orange = new Color(1, 0.6864846f, 0.172549f, 1);
         purple = new Color(0.6741618f, 0.172549f, 1, 1);
     }
@@ -34,6 +34,35 @@ public class battleManager : MonoBehaviour
             manaAtual += manaPS * Time.deltaTime;
             if(manaAtual > mana){
                 manaAtual = mana;
+            }
+            if(time == 0){
+                if(Input.GetKeyUp(KeyCode.Alpha1)){
+                    GetComponent<projetilDeGelo>().activate(true);
+                    GameObject dmgText = Instantiate(prefabDmgText);
+                    dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "GELO";
+                    //dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.blue;
+                    dmgText.transform.position = transform.position + Vector3.up;
+                    GetComponent<magiaDeMetal>().activate(false);
+                    GetComponent<magiaDeFogo>().activate(false);
+                }else{
+                    if(Input.GetKeyUp(KeyCode.Alpha2)){
+                        GameObject dmgText = Instantiate(prefabDmgText);
+                        dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "METAL";
+                        dmgText.transform.position = transform.position + Vector3.up;
+                        GetComponent<projetilDeGelo>().activate(false);
+                        GetComponent<magiaDeMetal>().activate(true);
+                        GetComponent<magiaDeFogo>().activate(false);
+                    }else{
+                        if(Input.GetKeyUp(KeyCode.Alpha3)){
+                            GameObject dmgText = Instantiate(prefabDmgText);
+                            dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "FOGO";
+                            dmgText.transform.position = transform.position + Vector3.up;
+                            GetComponent<projetilDeGelo>().activate(false);
+                            GetComponent<magiaDeMetal>().activate(false);
+                            GetComponent<magiaDeFogo>().activate(true);
+                        }
+                    }
+                }
             }
         }else{
             manaCast += Time.deltaTime * manaCastPS;

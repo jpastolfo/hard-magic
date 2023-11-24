@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class magiaDeFogo : MonoBehaviour
 {
-    public float dano = 10, duracao = 5f;
-    public int range = 3;
+    public float dano = 10, duracao = 5f, custoMana = 10f, custo2 = 35, custo3 = 70;
+    public int range = 3, longrange = 8;
     int time = 0;
     GameObject prefabFogo, prefabFoguinho;
 
@@ -14,7 +14,14 @@ public class magiaDeFogo : MonoBehaviour
     public LayerMask mask;
 
     bool castando = false;
-    // Start is called before the first frame update
+
+    bool active = false;
+
+    public void activate(bool tof){
+        active = tof;
+    }
+
+     // Start is called before the first frame update
     void Start()
     {
         prefabFogo = Resources.Load<GameObject>("fogo");
@@ -27,11 +34,12 @@ public class magiaDeFogo : MonoBehaviour
         if(castando){
             TimerCastDuration += Time.deltaTime;
         }
-        if(Input.GetKeyDown(KeyCode.E) && !castando){
+        if(Input.GetKeyDown(KeyCode.Space) && !castando && active){
             castando = true;
             GetComponent<playerMovement>().slow(0.5f);
+            float ncarregado = GetComponent<battleManager>().castMana(custoMana, custo2, custo3);
         }
-        if(Input.GetKeyUp(KeyCode.E)){
+        if(Input.GetKeyUp(KeyCode.Space) && active){
             //if(TimerCastDuration >= castDuration){
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
@@ -42,17 +50,45 @@ public class magiaDeFogo : MonoBehaviour
                     GameObject fogo = Instantiate(prefabFogo);
                     fogo.transform.position = transform.position;
                     fogo.transform.forward = new Vector3(target.x, 0, target.z).normalized;                    
-                    Destroy(fogo, duracao);
-                    fogo.GetComponent<magia>().spawnar(dmg: dano, team: time, dt: duracao);
-                    fogo.GetComponent<BoxCollider>().size = new Vector3(1,1,range);
-                    fogo.GetComponent<BoxCollider>().center = new Vector3(1,1,(range- 1)/2);
-                    GameObject obj = new GameObject("oie");
-                    obj.transform.position = hit.point;
-                    for(int i = 0; i < range; i++){
+                    //Destroy(fogo, duracao);
+                    float ncarregado = GetComponent<battleManager>().castMana(custoMana, custo2, custo3);
+                    float auxdano = dano, auxduracao = duracao;
+                    int auxrange = range;
+                    if(ncarregado >= custo2){
+                        auxrange = longrange;
+                    }
+                    fogo.GetComponent<magia>().spawnar(dmg: auxdano, team: time, dt: auxduracao);
+                    fogo.GetComponent<BoxCollider>().size = new Vector3(1,1,auxrange);
+                    fogo.GetComponent<BoxCollider>().center = new Vector3(0,0,(auxrange- 1)/2);
+                    for(int i = 0; i < auxrange; i++){
                         GameObject foguinho = Instantiate(prefabFoguinho);
                         foguinho.transform.position = fogo.transform.position + new Vector3(target.x, 0, target.z).normalized * i;
                         foguinho.transform.SetParent(fogo.transform);
-                        foguinho.GetComponent<AnimControlDuracao>().duracao = duracao;
+                        //foguinho.GetComponent<AnimControlDuracao>().duracao = duracao;
+                    }
+                    if(ncarregado > custo3){
+                        for(int j = 0; j < 3; j++){
+                            GameObject fgo = Instantiate(prefabFogo);
+                            fgo.transform.position = transform.position;
+                            if(j == 0){
+                                fgo.transform.forward = -1 * fogo.transform.forward;
+                                fgo.name = "aaa";
+                            }
+                            if(j == 1){
+                                fgo.transform.forward = fogo.transform.right;
+                            }
+                            if(j == 2){
+                                fgo.transform.forward = -1* fogo.transform.right;
+                            }
+                            fgo.GetComponent<magia>().spawnar(dmg: auxdano, team: time, dt: auxduracao);
+                            fgo.GetComponent<BoxCollider>().size = new Vector3(1,1,auxrange);
+                            fgo.GetComponent<BoxCollider>().center = new Vector3(0,0,(auxrange- 1)/2);
+                            for(int i = 0; i < auxrange; i++){
+                                GameObject foguinho = Instantiate(prefabFoguinho);
+                                foguinho.transform.position = fgo.transform.position + fgo.transform.forward * i;
+                                foguinho.transform.SetParent(fgo.transform);
+                            }
+                        }
                     }
                     //AreaSkill(target);
                 }

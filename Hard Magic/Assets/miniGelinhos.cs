@@ -26,10 +26,10 @@ public class miniGelinhos : MonoBehaviour
             gelo.GetComponent<magia>().spawnar(spd:speed, dmg: 10, team: time, dt: duracao, doc: false);
             gelo.transform.forward = transform.forward;
             if(i == 1){
-                gelo.transform.forward = (transform.forward + Vector3.left).normalized;
+                gelo.transform.forward = (transform.forward + transform.right * -1).normalized;
             }
             if(i == 2){
-                gelo.transform.forward = (transform.forward + Vector3.right).normalized;
+                gelo.transform.forward = (transform.forward + transform.right).normalized;
             }
         }
     }

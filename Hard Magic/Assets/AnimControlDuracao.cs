@@ -17,7 +17,7 @@ public class AnimControlDuracao : MonoBehaviour
 
         animator.speed = speed;
 
-        Destroy(gameObject, duracao);
+        //Destroy(gameObject, duracao);
     }
 
     // Update is called once per frame
