@@ -11,11 +11,11 @@ public class magiaDeFogo : MonoBehaviour
 
     float TimerCastDuration = 0;
 
-    public LayerMask mask;
-
     bool castando = false;
 
     bool active = false;
+
+    LayerMask mask;
 
     public void activate(bool tof){
         active = tof;
@@ -26,6 +26,7 @@ public class magiaDeFogo : MonoBehaviour
     {
         prefabFogo = Resources.Load<GameObject>("fogo");
         prefabFoguinho = Resources.Load<GameObject>("FogoUnidade");
+        mask = GetComponent<battleManager>().mask;
     }
 
     // Update is called once per frame

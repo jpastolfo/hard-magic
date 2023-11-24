@@ -35,7 +35,12 @@ public class SkeltAtk2 : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        tempo = 0.9f;
+        battleManager bm = other.GetComponent<battleManager>();
+        if(bm != null){
+            if(bm.time == 0){
+                tempo = 0.9f;
+            }
+        }
     }
    /* private void OnTriggerEnter(Collider other)
     {

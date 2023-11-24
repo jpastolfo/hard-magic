@@ -10,6 +10,8 @@ public class projetilDeGelo : MonoBehaviour
     bool castando = false;
     bool active = true;
 
+    LayerMask mask;
+
     public void activate(bool tof){
         active = tof;
     }
@@ -18,6 +20,7 @@ public class projetilDeGelo : MonoBehaviour
     {
         prefabGelo = Resources.Load<GameObject>("gelinho");
         prefabCastGelo = Resources.Load<GameObject>("Gelo Cast");
+        mask = GetComponent<battleManager>().mask;
     }
 
     // Update is called once per frame
@@ -41,7 +44,7 @@ public class projetilDeGelo : MonoBehaviour
             //if(TimerCastDuration >= castDuration){
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                if( Physics.Raycast(ray, out hit) )
+                if( Physics.Raycast(ray, out hit, mask) )
                 {
                     //Debug.DrawLine( transform.position, hit.point );
                     Vector3 target = hit.point;

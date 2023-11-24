@@ -9,7 +9,7 @@ public class magiaDeMetal : MonoBehaviour
 
     float TimerCastDuration = 0;
 
-    public LayerMask mask;
+    LayerMask mask;
 
     GameObject prefabMetal;
 
@@ -25,6 +25,7 @@ public class magiaDeMetal : MonoBehaviour
     void Start()
     {
         prefabMetal = Resources.Load<GameObject>("metalArea");
+        mask = GetComponent<battleManager>().mask;
     }
 
     // Update is called once per frame

@@ -9,7 +9,11 @@ public class battleManager : MonoBehaviour
     float vidaatual, manaAtual = 100, manaCast = 0, custo2 = 100, custo3 = 100;
     public int time;
     GameObject hbfiller, prefabDmgText, manafiller, loadfiller;
+
+    public GameObject atk;
     bool castando = false;
+
+    public LayerMask mask;
 
     Color blue, orange, purple;
     // Start is called before the first frame update
@@ -89,6 +93,7 @@ public class battleManager : MonoBehaviour
         dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = ""+dano;
         dmgText.transform.position = transform.position + Vector3.up;
         if(vidaatual <= 0 && time != 0){
+            if(atk!=null){Destroy(atk);} 
             Destroy(gameObject);
         }
     }
