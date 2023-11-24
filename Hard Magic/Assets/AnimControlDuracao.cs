@@ -15,7 +15,9 @@ public class AnimControlDuracao : MonoBehaviour
 
         float speed = clip.length / desiredDurationInSeconds;
 
-        Destroy(gameObject, duracao);
+        animator.speed = speed;
+
+        //Destroy(gameObject, duracao);
     }
 
     // Update is called once per frame
