@@ -24,16 +24,20 @@ public class projetilDeGelo : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space) && !castando && active){
-            castando = true;
-            castSprite = Instantiate(prefabCastGelo);
-            castSprite.transform.SetParent(gameObject.transform);
-            castSprite.GetComponent<AnimControlDuracao>().duracao = castDuration; 
-            castSprite.transform.position = transform.position;
-            GetComponent<playerMovement>().slow(0.5f);
-            GetComponent<battleManager>().castMana(custoMana, custo2, custo3);
-            Destroy(castSprite, castDuration);
+            float ncarregado = GetComponent<battleManager>().castMana(custoMana, custo2, custo3);
+            //Debug.Log(ncarregado);
+            castando = false;
+            if(ncarregado != -2){
+                castando = true;
+                castSprite = Instantiate(prefabCastGelo);
+                castSprite.transform.SetParent(gameObject.transform);
+                castSprite.GetComponent<AnimControlDuracao>().duracao = castDuration; 
+                castSprite.transform.position = transform.position;
+                GetComponent<playerMovement>().slow(0.5f);
+                Destroy(castSprite, castDuration);
+            }
         }
-        if(Input.GetKeyUp(KeyCode.Space) && active){
+        if(Input.GetKeyUp(KeyCode.Space) && active && castando){
             //if(TimerCastDuration >= castDuration){
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;

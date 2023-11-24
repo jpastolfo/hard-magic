@@ -34,11 +34,13 @@ public class magiaDeMetal : MonoBehaviour
             TimerCastDuration += Time.deltaTime;
         }
         if(Input.GetKeyDown(KeyCode.Space) && !castando && active){
-            castando = true;
-            GetComponent<playerMovement>().slow(0.5f);
             float ncarregado = GetComponent<battleManager>().castMana(custoMana, custo2, custo3);
+            if(ncarregado != -2){
+                castando = true;
+                GetComponent<playerMovement>().slow(0.5f);
+            }
         }
-        if(Input.GetKeyUp(KeyCode.Space) && active){
+        if(Input.GetKeyUp(KeyCode.Space) && active && castando){
             //if(TimerCastDuration >= castDuration){
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;

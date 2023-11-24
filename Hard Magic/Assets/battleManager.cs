@@ -108,6 +108,11 @@ public class battleManager : MonoBehaviour
             manaCast = 0;
             if(aux < custo) return custo;
             return aux;
+        }else{
+            if(manaAtual < custo){
+                castando = false;
+                return -2;
+            }
         }
         return -1;
     }
