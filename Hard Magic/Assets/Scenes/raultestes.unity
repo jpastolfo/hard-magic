@@ -7933,7 +7933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1101184963999274652, guid: b4ed28e5f8c56e34598b045302842567, type: 3}
       propertyPath: "RaioDeVis\xE3o"
-      value: 24
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4ed28e5f8c56e34598b045302842567, type: 3}
