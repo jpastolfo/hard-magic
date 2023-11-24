@@ -32,7 +32,7 @@ public class ghostescript : MonoBehaviour
                 nma.enabled = true;
             }
         }
-        if(nma.enabled)
+        if(nma.enabled && Vector3.Distance(player.transform.position, transform.position) < 30)
             nma.SetDestination(player.transform.position);
         if(atacando){
             dashTimer += Time.deltaTime;
