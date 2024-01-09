@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee7df00f056e8b4f9962fe4a2d43d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dano: 5
+  dano: 10
   duracao: 3
   speed: 20
   castDuration: 1
@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 2
-  dano: 10
+  dano: 5
   castDuration: 0
   metalDuracao: 0.25
   duracaoDaParede: 5
