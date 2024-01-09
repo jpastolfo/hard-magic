@@ -24,7 +24,7 @@ public class magiaDeMetal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        prefabMetal = Resources.Load<GameObject>("metalArea");//"metalArea");
+        prefabMetal = Resources.Load<GameObject>("metalfogo");//"metalArea");
         mask = GetComponent<battleManager>().mask;
     }
 
