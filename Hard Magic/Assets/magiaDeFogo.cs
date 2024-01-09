@@ -60,7 +60,7 @@ public class magiaDeFogo : MonoBehaviour
                     if(ncarregado >= custo2){
                         auxrange = longrange;
                     }
-                    fogo.GetComponent<magia>().spawnar(dmg: auxdano, team: time, dt: auxduracao);
+                    fogo.GetComponent<magia>().spawnar(dmg: auxdano, team: time, dt: auxduracao, continuo:true);
                     fogo.GetComponent<BoxCollider>().size = new Vector3(1,1,auxrange);
                     fogo.GetComponent<BoxCollider>().center = new Vector3(0,0,(auxrange- 1)/2);
                     for(int i = 0; i < auxrange; i++){
@@ -83,7 +83,7 @@ public class magiaDeFogo : MonoBehaviour
                             if(j == 2){
                                 fgo.transform.forward = -1* fogo.transform.right;
                             }
-                            fgo.GetComponent<magia>().spawnar(dmg: auxdano, team: time, dt: auxduracao);
+                            fgo.GetComponent<magia>().spawnar(dmg: auxdano, team: time, dt: auxduracao, continuo:true);
                             fgo.GetComponent<BoxCollider>().size = new Vector3(1,1,auxrange);
                             fgo.GetComponent<BoxCollider>().center = new Vector3(0,0,(auxrange- 1)/2);
                             for(int i = 0; i < auxrange; i++){

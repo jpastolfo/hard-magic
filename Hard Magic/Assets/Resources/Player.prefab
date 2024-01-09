@@ -461,6 +461,10 @@ MonoBehaviour:
   manaPS: 10
   manaCastPS: 35
   time: 0
+  atk: {fileID: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &7707614946168582533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,9 +504,6 @@ MonoBehaviour:
   custoMana: 10
   custo2: 50
   custo3: 80
-  mask:
-    serializedVersion: 2
-    m_Bits: 55
 --- !u!114 &7707614946168582591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,16 +516,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31689caa2218fad4c9451589928f353f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dano: 10
+  dano: 5
   duracao: 3
   custoMana: 10
   custo2: 35
   custo3: 70
   range: 3
   longrange: 8
-  mask:
-    serializedVersion: 2
-    m_Bits: 55
 --- !u!1 &7707614945443555476
 GameObject:
   m_ObjectHideFlags: 0

@@ -86,6 +86,7 @@ public class battleManager : MonoBehaviour
 
     public void aplicadano(float dano){
         vidaatual -= dano;
+        if(vidaatual > vida) vidaatual = vida;
         if(hbfiller){
             hbfiller.GetComponent<Image>().fillAmount = vidaatual/vida;
         }
