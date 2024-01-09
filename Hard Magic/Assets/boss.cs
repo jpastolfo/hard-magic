@@ -57,7 +57,7 @@ public class boss : MonoBehaviour
         }
 
         if(!andando && !atacando && cdEntreAcaoTimer > cdEntreAcao){
-            int acao = Random.Range(0, 4);
+            int acao = Random.Range(2, 4);
             Debug.Log(acao);
             if(acao == 0 && raioCdTimer >= raiocd){
                 atacando = true;

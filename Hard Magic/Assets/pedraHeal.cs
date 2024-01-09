@@ -24,7 +24,8 @@ public class pedraHeal : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        Debug.Log("aa");
-        boss.GetComponent<boss>().achaLugarPraPedra(gameObject);
+        if(other.gameObject.GetComponent<battleManager>() == null){
+            boss.GetComponent<boss>().achaLugarPraPedra(gameObject);
+        }
     }
 }
