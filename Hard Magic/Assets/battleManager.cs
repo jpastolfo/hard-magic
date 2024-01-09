@@ -48,22 +48,61 @@ public class battleManager : MonoBehaviour
                     dmgText.transform.position = transform.position + Vector3.up;
                     GetComponent<magiaDeMetal>().activate(false);
                     GetComponent<magiaDeFogo>().activate(false);
-                }else{
-                    if(Input.GetKeyUp(KeyCode.Alpha2)){
+                    GetComponent<magiaMetalFogo>().activate(false);
+                    GetComponent<magia_metal_gelo>().activate(false);
+                }
+                else{
+                    if (Input.GetKeyUp(KeyCode.Alpha2))
+                    {
                         GameObject dmgText = Instantiate(prefabDmgText);
                         dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "METAL";
                         dmgText.transform.position = transform.position + Vector3.up;
                         GetComponent<projetilDeGelo>().activate(false);
                         GetComponent<magiaDeMetal>().activate(true);
                         GetComponent<magiaDeFogo>().activate(false);
-                    }else{
-                        if(Input.GetKeyUp(KeyCode.Alpha3)){
+                        GetComponent<magiaMetalFogo>().activate(false);
+                        GetComponent<magia_metal_gelo>().activate(false);
+                    }
+                    else
+                    {
+                        if (Input.GetKeyUp(KeyCode.Alpha3))
+                        {
                             GameObject dmgText = Instantiate(prefabDmgText);
                             dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "FOGO";
                             dmgText.transform.position = transform.position + Vector3.up;
                             GetComponent<projetilDeGelo>().activate(false);
                             GetComponent<magiaDeMetal>().activate(false);
                             GetComponent<magiaDeFogo>().activate(true);
+                            GetComponent<magiaMetalFogo>().activate(false);
+                            GetComponent<magia_metal_gelo>().activate(false);
+                        }
+                        else
+                        {
+                            if (Input.GetKeyUp(KeyCode.Alpha4))
+                            {
+                                GameObject dmgText = Instantiate(prefabDmgText);
+                                dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "METAL e FOGO";
+                                dmgText.transform.position = transform.position + Vector3.up;
+                                GetComponent<projetilDeGelo>().activate(false);
+                                GetComponent<magiaDeMetal>().activate(false);
+                                GetComponent<magiaDeFogo>().activate(false);
+                                GetComponent<magiaMetalFogo>().activate(true);
+                                GetComponent<magia_metal_gelo>().activate(false);
+                            }
+                            else
+                                {
+                                    if (Input.GetKeyUp(KeyCode.Alpha5))
+                                    {
+                                        GameObject dmgText = Instantiate(prefabDmgText);
+                                        dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "METAL e GELO";
+                                        dmgText.transform.position = transform.position + Vector3.up;
+                                        GetComponent<projetilDeGelo>().activate(false);
+                                        GetComponent<magiaDeMetal>().activate(false);
+                                        GetComponent<magiaDeFogo>().activate(false);
+                                        GetComponent<magiaMetalFogo>().activate(false);
+                                        GetComponent<magia_metal_gelo>().activate(true);
+                                    }
+                                }
                         }
                     }
                 }
