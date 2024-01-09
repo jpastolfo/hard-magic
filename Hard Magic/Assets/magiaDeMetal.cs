@@ -24,7 +24,7 @@ public class magiaDeMetal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        prefabMetal = Resources.Load<GameObject>("metalfogo");//"metalArea");
+        prefabMetal = Resources.Load<GameObject>("metalArea");
         mask = GetComponent<battleManager>().mask;
     }
 
@@ -54,9 +54,16 @@ public class magiaDeMetal : MonoBehaviour
                     metal.transform.right = target - transform.position;
                     metal.transform.GetChild(0).GetComponent<AnimControlDuracao>().duracao = metalDuracao;
                     float ncarregado = GetComponent<battleManager>().castMana(custoMana, custo2, custo3);
-                    if(ncarregado < custo2){
+                    if(ncarregado < custo2)
+                    {
                         Destroy(metal, metalDuracao);
                         metal.GetComponent<magia>().spawnar(dmg: dano, team: time, dt: metalDuracao);
+                        /*metalfogo
+                        Transform OsFogo= metal.transform.Find("OsFogo");
+                        if(OsFogo!=null) for (int i = 0; i < OsFogo.childCount; i++)
+                        {
+                            OsFogo.GetChild(i).GetComponent<magia>().spawnar(dmg: dano, team: time, dt: metalDuracao);
+                        }*/
                     }
                     if(ncarregado >= custo2 && ncarregado < custo3){
                         metal.GetComponent<magia>().spawnar(dmg: dano*2, team: time, dt: metalDuracao + duracaoDaParede, pdur: duracaoDaParede);

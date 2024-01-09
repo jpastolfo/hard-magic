@@ -49,21 +49,38 @@ public class battleManager : MonoBehaviour
                     GetComponent<magiaDeMetal>().activate(false);
                     GetComponent<magiaDeFogo>().activate(false);
                 }else{
-                    if(Input.GetKeyUp(KeyCode.Alpha2)){
+                    if (Input.GetKeyUp(KeyCode.Alpha2))
+                    {
                         GameObject dmgText = Instantiate(prefabDmgText);
                         dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "METAL";
                         dmgText.transform.position = transform.position + Vector3.up;
                         GetComponent<projetilDeGelo>().activate(false);
                         GetComponent<magiaDeMetal>().activate(true);
                         GetComponent<magiaDeFogo>().activate(false);
-                    }else{
-                        if(Input.GetKeyUp(KeyCode.Alpha3)){
+                    }
+                    else
+                    {
+                        if (Input.GetKeyUp(KeyCode.Alpha3))
+                        {
                             GameObject dmgText = Instantiate(prefabDmgText);
                             dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "FOGO";
                             dmgText.transform.position = transform.position + Vector3.up;
                             GetComponent<projetilDeGelo>().activate(false);
                             GetComponent<magiaDeMetal>().activate(false);
                             GetComponent<magiaDeFogo>().activate(true);
+                        }
+                        else
+                        {
+                            if (Input.GetKeyUp(KeyCode.Alpha4))
+                            {
+                                GameObject dmgText = Instantiate(prefabDmgText);
+                                dmgText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "METALeFOGO";
+                                dmgText.transform.position = transform.position + Vector3.up;
+                                GetComponent<projetilDeGelo>().activate(false);
+                                GetComponent<magiaDeMetal>().activate(false);
+                                GetComponent<magiaDeFogo>().activate(false);
+                                GetComponent<magiaMetalFogo>().activate(true);
+                            }
                         }
                     }
                 }

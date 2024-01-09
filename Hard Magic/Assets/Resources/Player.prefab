@@ -376,6 +376,7 @@ GameObject:
   - component: {fileID: 7707614946168582533}
   - component: {fileID: 7707614946168582584}
   - component: {fileID: 7707614946168582591}
+  - component: {fileID: 8466575016517149625}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -461,6 +462,10 @@ MonoBehaviour:
   manaPS: 10
   manaCastPS: 35
   time: 0
+  atk: {fileID: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &7707614946168582533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,7 +492,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7707614945135445585}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6661d2c1e3bfed14a9c2ba28fe07488e, type: 3}
   m_Name: 
@@ -500,9 +505,6 @@ MonoBehaviour:
   custoMana: 10
   custo2: 50
   custo3: 80
-  mask:
-    serializedVersion: 2
-    m_Bits: 55
 --- !u!114 &7707614946168582591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,9 +524,26 @@ MonoBehaviour:
   custo3: 70
   range: 3
   longrange: 8
-  mask:
-    serializedVersion: 2
-    m_Bits: 55
+--- !u!114 &8466575016517149625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707614945135445585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8d347da787e0a4ca5651b32d7bfb2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 2
+  dano: 10
+  castDuration: 0
+  metalDuracao: 0.25
+  duracaoDaParede: 5
+  custoMana: 10
+  custo2: 50
+  custo3: 80
 --- !u!1 &7707614945443555476
 GameObject:
   m_ObjectHideFlags: 0
