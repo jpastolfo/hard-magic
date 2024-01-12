@@ -8,15 +8,15 @@ public class boss : MonoBehaviour
     public float arenaminx, arenaminy, arenamaxx, arenamaxy, raioatkDuracao = 3f, raioCastTime = 0.7f, targetSpeed = 5f, danoRaio = 5, paredeAtkDur = 2f, paredeDur = 60f, healCastTime = 1f, HealDur = 30f;
     public float raiocd = 7f, cdEntreAcao = 2f, paredeCastTime = 1f, levantaParedeCd = 60f, danoParede = 15f, spawnaFantasmaCd = 10f, spawnaBixoCastTime = 0.5f, fantasmaAtkDur = 3f, healcdTime = 45f;
 
-    float castTimer = 0, durtimer = 0, raioCdTimer = 0, cdEntreAcaoTimer = 0, levantaParedeCdtimer = 0, fantasmaTimer = 0, spawnaFantasmacdTimer = 0, healcdTimer = 0;
-
+    float castTimer = 0, durtimer = 0, raioCdTimer = 0, cdEntreAcaoTimer = 0, levantaParedeCdtimer = 0, fantasmaTimer = 0, spawnaFantasmacdTimer = 0, healcdTimer = 0, altura = 0;
+    float colunaCaiTempo = 2f, colunaCaiTimer = 0;
     public int nparedes = 6, nghost = 3, npedras = 3;
 
     GameObject[] paredes;
     UnityEngine.AI.NavMeshAgent nma;
-    GameObject veSeEncaixa, raio, raioArea, alvoprefab, alvo, player, raioprefab, maozinha, puddlePrefab, pilarPrefab, areaDMG, ghostprefab, walkTarget, healTotem;
+    GameObject veSeEncaixa, raio, raioArea, alvoprefab, alvo, player, raioprefab, maozinha, puddlePrefab, pilarPrefab, areaDMG, ghostprefab, walkTarget, healTotem, coluna;
     Animator animator;
-    bool andando = false, atacando = false, atiraRaio = false, subindoParede= false, spawnandoBixo = false, healando = false;
+    bool andando = false, atacando = false, atiraRaio = false, subindoParede= false, spawnandoBixo = false, healando = false, comeca = false, caiColuna = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,15 +41,29 @@ public class boss : MonoBehaviour
         arenaminx += transform.position.x;
         arenamaxy += transform.position.z;
         arenaminy += transform.position.z;
+        altura = transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
         if(Vector3.Distance(player.transform.position, transform.position) < 15f){
+            if(!comeca){
+                comeca = true;
+                coluna = GameObject.Find("colunaquecai");
+                if(coluna){
+                    caiColuna = true;
+                }
+            }
+            if(caiColuna){
+                if(colunaCaiTimer < colunaCaiTempo){
+                    colunaCaiTimer += Time.deltaTime;
+                }
+                coluna.transform.localEulerAngles = new Vector3(colunaCaiTimer/colunaCaiTempo * 80, 0, 0);
+            }
             if(andando){
                 //Debug.Log("aaaaaaaa");
-                if(Vector3.Distance(walkTarget.transform.position, new Vector3(transform.position.x, 0, transform.position.z)) < 0.1f){
+                if(Vector3.Distance(walkTarget.transform.position, new Vector3(transform.position.x, walkTarget.transform.position.y, transform.position.z)) < 0.1f){
                     //if(nma.isStopped){
                     //Debug.Log("ccccc");
                     andando = false;
@@ -83,7 +97,7 @@ public class boss : MonoBehaviour
                         float x = Random.Range(arenaminx, arenamaxx);
                         float y = Random.Range(arenaminy, arenamaxy);
                         paredes[i] = Instantiate(puddlePrefab);
-                        paredes[i].transform.position = new Vector3(x, 0.5f, y);
+                        paredes[i].transform.position = new Vector3(x, altura + 0.5f, y);
                         //Destroy(paredes[i], paredeCastTime + 1f);
                     }
                 }
@@ -123,13 +137,13 @@ public class boss : MonoBehaviour
                     castTimer += Time.deltaTime;
                 }else{
                     if(durtimer == 0){
-                        GameObject go = Instantiate(ghostprefab);
-                        go.transform.position = transform.position;
+                        GameObject go = Instantiate(ghostprefab, transform.position + new Vector3(0, 1, 0), transform.rotation);
+                        //go.transform.position = transform.position + new Vector3(0, 1, 0);
                     }
                     fantasmaTimer += Time.deltaTime;
                     if(fantasmaTimer >= fantasmaAtkDur / nghost){
-                        GameObject go = Instantiate(ghostprefab);
-                        go.transform.position = transform.position;
+                        GameObject go = Instantiate(ghostprefab, transform.position + new Vector3(0, 1, 0), transform.rotation);
+                        //go.transform.position = transform.position + new Vector3(0, 1, 0);
                         fantasmaTimer = 0;
                     }
                     durtimer += Time.deltaTime;
@@ -245,16 +259,19 @@ public class boss : MonoBehaviour
     public void naoEncaixa(){
         float x = Random.Range(arenaminx, arenamaxx);
         float y = Random.Range(arenaminy, arenamaxy);
-        nma.SetDestination(new Vector3(x,0,y));
-        GameObject go = Instantiate(veSeEncaixa);
-        go.transform.position = new Vector3(x,0,y);
-        go.transform.localScale = transform.localScale;
-        walkTarget = go;
+        RaycastHit hit;
+        if(Physics.Raycast(new Vector3(x, 100, y), Vector3.up * -1, out hit, Mathf.Infinity)){
+            nma.SetDestination(new Vector3(x,hit.point.y,y));
+            GameObject go = Instantiate(veSeEncaixa);
+            go.transform.position = new Vector3(x,hit.point.y,y);
+            go.transform.localScale = transform.localScale;
+            walkTarget = go;
+        }
     }
 
     public void achaLugarPraPedra(GameObject pedra){
         float x = Random.Range(arenaminx, arenamaxx);
         float y = Random.Range(arenaminy, arenamaxy);
-        pedra.transform.position = new Vector3(x, 0 ,y);
+        pedra.transform.position = new Vector3(x, altura ,y);
     }
 }
